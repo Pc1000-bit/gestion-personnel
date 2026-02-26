@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Connexion - SGP</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
+
 <body style="background: #f1f5f9;">
     <div class="login-container">
+        <!-- Loader Overlay -->
+        <div id="loader" class="loader-overlay">
+            <div class="spinner"></div>
+            <p style="margin-top: 1rem; color: var(--primary-color); font-weight: 500;">Vérification...</p>
+        </div>
+
         <h2 style="text-align: center; color: #1e293b;">SGP - Connexion</h2>
-        
-        <div th:if="${param.error}" class="card" style="background: #fee2e2; color: #991b1b; padding: 0.75rem; margin-bottom: 1rem; border: none;">
+
+        <div th:if="${param.error}" class="card"
+            style="background: #fee2e2; color: #991b1b; padding: 0.75rem; margin-bottom: 1rem; border: none;">
             Identifiant ou mot de passe incorrect.
         </div>
-        <div th:if="${param.deconnexion}" class="card" style="background: #dcfce7; color: #166534; padding: 0.75rem; margin-bottom: 1rem; border: none;">
+        <div th:if="${param.deconnexion}" class="card"
+            style="background: #dcfce7; color: #166534; padding: 0.75rem; margin-bottom: 1rem; border: none;">
             Vous avez été déconnecté avec succès.
         </div>
 
-        <form th:action="@{/connexion}" method="post">
+        <form th:action="@{/connexion}" method="post" onsubmit="showLoader()">
             <div class="form-group">
                 <label for="username">Identifiant</label>
                 <input type="text" id="username" name="username" required autofocus>
@@ -25,8 +35,16 @@
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; margin-top: 1rem;">Se connecter</button>
+            <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; margin-top: 1rem;">Se
+                connecter</button>
         </form>
     </div>
+
+    <script>
+        function showLoader() {
+            document.getElementById('loader').style.display = 'flex';
+        }
+    </script>
 </body>
+
 </html>
