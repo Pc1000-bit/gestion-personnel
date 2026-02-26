@@ -2,7 +2,10 @@ package com.kenfi.gestionpersonnel.controleur;
 
 import com.kenfi.gestionpersonnel.modele.Departement;
 import com.kenfi.gestionpersonnel.service.ServiceDepartement;
+import com.kenfi.gestionpersonnel.service.ServiceEmploye;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import com.kenfi.gestionpersonnel.modele.Employe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +16,18 @@ public class ControleurDepartement {
 
     @Autowired
     private ServiceDepartement serviceDepartement;
+
+    @Autowired
+    private ServiceEmploye serviceEmploye;
+
+    @GetMapping("/voir/{id}")
+    public String voirEmployes(@PathVariable Long id, Model modele) {
+        Departement departement = serviceDepartement.trouverParId(id).orElseThrow();
+        List<Employe> employes = serviceEmploye.listerParDepartement(departement);
+        modele.addAttribute("departement", departement);
+        modele.addAttribute("employes", employes);
+        return "detail-departement";
+    }
 
     @GetMapping
     public String lister(Model modele) {

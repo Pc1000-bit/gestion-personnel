@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout :: header}"></head>
+
+<body>
+    <nav th:replace="~{layout :: nav}"></nav>
+
+    <div class="container">
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <a th:href="@{/admin/departements}"
+                style="text-decoration: none; font-size: 1.5rem; color: var(--text-color);">←</a>
+            <h1 style="margin: 0;">Employés du département : <span th:text="${departement.nom}"
+                    style="color: var(--primary-color);">IT</span></h1>
+        </div>
+
+        <div class="card" style="margin-top: 1.5rem;">
+            <p><strong>Responsable :</strong> <span th:text="${departement.nomResponsable}">N/A</span></p>
+            <p><strong>Lieu :</strong> <span th:text="${departement.lieu}">N/A</span></p>
+            <p><strong>Nombre total :</strong> <span th:text="${employes.size()}">0</span> employé(s)</p>
+        </div>
+
+        <table style="margin-top: 2rem;">
+            <thead>
+                <tr>
+                    <th>Nom Complet</th>
+                    <th>Poste</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Salaire</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="emp : ${employes}">
+                    <td th:text="${emp.nomComplet}">Jean Dupont</td>
+                    <td th:text="${emp.poste}">Développeur</td>
+                    <td th:text="${emp.email}">jean@example.com</td>
+                    <td th:text="${emp.telephone != null && !emp.telephone.isEmpty() ? emp.telephone : 'N/A'}">062...
+                    </td>
+                    <td
+                        th:text="${emp.salaire != null ? #numbers.formatDecimal(emp.salaire, 0, 'WHITESPACE', 0, 'POINT') + ' FCFA' : 'N/A'}">
+                        150 000 FCFA</td>
+                </tr>
+                <tr th:if="${employes.isEmpty()}">
+                    <td colspan="5" style="text-align: center; color: var(--secondary-color);">Aucun employé affecté à
+                        ce département.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

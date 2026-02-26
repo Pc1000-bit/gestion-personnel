@@ -25,7 +25,10 @@
             <tbody>
                 <tr th:each="dept : ${departements}">
                     <td th:text="${dept.id}">1</td>
-                    <td th:text="${dept.nom}">Informatique</td>
+                    <td>
+                        <a th:href="@{'/admin/departements/voir/' + ${dept.id}}" th:text="${dept.nom}"
+                            style="color: var(--primary-color); font-weight: 600; text-decoration: none;">Informatique</a>
+                    </td>
                     <td th:text="${dept.lieu}">Bâtiment A</td>
                     <td th:text="${dept.nomResponsable}">Dr. Martin</td>
                     <td>
