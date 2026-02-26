@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout :: header}"></head>
+
+<body>
+    <nav th:replace="~{layout :: nav}"></nav>
+
+    <div class="container">
+        <h1 th:text="${departement.id == null ? 'Ajouter un Département' : 'Modifier le Département'}">Titre</h1>
+
+        <div class="card" style="max-width: 500px; margin-top: 2rem;">
+            <form th:action="@{/admin/departements/enregistrer}" th:object="${departement}" method="post">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="form-group">
+                    <label>Nom du Département</label>
+                    <input type="text" th:field="*{nom}" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Lieu / Bureau</label>
+                    <input type="text" th:field="*{lieu}">
+                </div>
+
+                <div class="form-group">
+                    <label>Nom du Responsable</label>
+                    <input type="text" th:field="*{nomResponsable}">
+                </div>
+
+                <div style="margin-top: 2rem; display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-primary">Créer</button>
+                    <a th:href="@{/admin/departements}" class="btn"
+                        style="background: #e2e8f0; color: #1e293b;">Annuler</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

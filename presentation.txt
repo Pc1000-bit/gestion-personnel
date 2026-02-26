@@ -1,0 +1,62 @@
+================================================================================
+          GUIDE DE SOUTENANCE : SYSTÈME DE GESTION DU PERSONNEL (SGP)
+================================================================================
+
+1. INTRODUCTION ET CONTEXTE
+-----------------------------
+« Bonjour à tous. Je vais vous présenter mon projet de fin module : une application de Gestion du Personnel (SGP). L'objectif était de concevoir un outil léger, sécurisé et performant pour centraliser les informations des employés et des départements d'une entreprise. »
+
+2. CHOIX TECHNIQUES (LA STACK)
+-------------------------------
+Pour ce projet de Licence 3, j'ai choisi une stack "Full Stack Java" moderne :
+- Backend : Spring Boot 3 (Framework robuste, facilite l'injection de dépendances).
+- Persistance : Spring Data JPA (pour manipuler la base de données sans écrire de SQL complexe).
+- Base de données : MySQL (fiable et standard).
+- Frontend : Thymeleaf + Vanilla CSS (moteur de template côté serveur, évite la complexité des frameworks JS tout en restant dynamique).
+- Sécurité : Spring Security (gestion fine des accès par rôles).
+
+3. ARCHITECTURE ET FONCTIONNALITÉS
+------------------------------------
+L'application respecte l'architecture MVC (Modèle-Vue-Contrôleur) :
+- Modèle : Représente les entités (Employé, Département, Utilisateur, Rôle).
+- Vue : Interface utilisateur en HTML/CSS via Thymeleaf.
+- Contrôleur : Gère la logique des requêtes HTTP.
+
+Fonctionnalités clés :
+- Authentification sécurisée (mots de passe hachés en BCrypt).
+- Tableau de bord dynamique (Stats en temps réel : nombre d'employés, masse salariale en FCFA).
+- CRUD complet des employés (Ajout, Modification, Suppression, Liste).
+- Gestion des départements réservée à l'administrateur.
+- Recherche multicritères d'employés.
+
+4. DÉFIS RENCONTRÉS ET SOLUTIONS
+----------------------------------
+- Compatibilité Java : J'ai travaillé avec la toute dernière version de Java (v25) et configuré le "Maven Wrapper" (mvnw) pour garantir que le projet tourne sur n'importe quel PC sans installation complexe de Maven.
+- Gestion des relations : Mise en place de relations @ManyToOne (Employé -> Département) avec gestion de la suppression sécurisée (SET NULL).
+- Ergonomie : Développement d'un design responsive et épuré avec Vanilla CSS pour une expérience utilisateur fluide.
+
+================================================================================
+             QUESTIONS POSSIBLES DU JURY (PRÉPARATION)
+================================================================================
+
+Q1 : Pourquoi avoir choisi Spring Boot plutôt que du Java EE classique ?
+R : Spring Boot offre une configuration simplifiée (Auto-configuration) et un serveur intégré (Tomcat), ce qui accélère considérablement le développement et facilite le déploiement.
+
+Q2 : Comment gérez-vous la sécurité des mots de passe ?
+R : Les mots de passe ne sont jamais stockés en clair. J'utilise BCryptPasswordEncoder de Spring Security qui génère un sel aléatoire et un hachage robuste, rendant les données inutilisables en cas de vol de base de données.
+
+Q3 : Pourquoi avoir utilisé Thymeleaf au lieu d'un framework comme React ou Angular ?
+R : Pour un projet de ce type, le rendu côté serveur (SSR) avec Thymeleaf est plus simple à mettre en place, plus rapide à charger pour le référencement, et permet de garder toute la logique dans le projet Java, ce qui facilite la maintenance.
+
+Q4 : Qu'arriverait-il si on supprimait un département qui contient encore des employés ?
+R : Grâce aux annotations JPA (@OnDelete(action = OnDeleteAction.SET_NULL)), la base de données mettra automatiquement à jour les employés rattachés pour que leur champ département devienne "vide" (NULL) au lieu de faire planter le système ou de supprimer l'employé par erreur.
+
+Q5 : Quelles seraient les prochaines évolutions possibles pour votre application ?
+R : On pourrait ajouter l'exportation des listes en PDF/Excel, un système de gestion des congés, ou encore une partie "Messagerie Interne" pour les employés.
+
+================================================================================
+CONSEIL : Pendant la démo, commencez par vous connecter avec le compte 'admin'.
+Ajoutez un département, puis ajoutez un employé pour montrer que la liste déroutante
+du département s'est mise à jour dynamiquement. C'est ce qui prouve la solidité
+de votre code !
+================================================================================

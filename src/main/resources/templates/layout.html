@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="header">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGP - Gestion du Personnel</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav th:fragment="nav">
+        <div>
+            <strong>SGP - Gestion</strong>
+            <a th:href="@{/tableau-de-bord}">Tableau de Bord</a>
+            <a sec:authorize="hasAnyRole('ADMIN', 'RH')" th:href="@{/rh/employes}">Employés</a>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/admin/departements}">Départements</a>
+        </div>
+        <div>
+            <span th:text="${#authentication.name}">Utilisateur</span>
+            <a th:href="@{/deconnexion}" class="btn btn-danger" style="padding: 0.25rem 0.75rem; margin-left: 1rem;">Déconnexion</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Le contenu sera injecté ici -->
+    </div>
+</body>
+</html>

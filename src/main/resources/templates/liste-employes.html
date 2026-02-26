@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout :: header}"></head>
+
+<body>
+    <nav th:replace="~{layout :: nav}"></nav>
+
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1 style="margin: 0;">Liste des Employés</h1>
+            <a th:href="@{/rh/employes/ajouter}" class="btn btn-primary">+ Ajouter</a>
+        </div>
+
+        <div class="card" style="margin-top: 1.5rem; padding: 1rem;">
+            <form th:action="@{/rh/employes}" method="get" style="display: flex; gap: 1rem;">
+                <input type="text" name="nom" placeholder="Rechercher par nom..." style="flex: 1;">
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom Complet</th>
+                    <th>Poste</th>
+                    <th>Département</th>
+                    <th>Email</th>
+                    <th>Salaire</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="employe : ${employes}">
+                    <td th:text="${employe.id}">1</td>
+                    <td th:text="${employe.nomComplet}">Jean Dupont</td>
+                    <td th:text="${employe.poste}">Développeur</td>
+                    <td th:text="${employe.departement != null ? employe.departement.nom : 'N/A'}">IT</td>
+                    <td th:text="${employe.email}">jean@example.com</td>
+                    <td th:text="${#numbers.formatDecimal(employe.salaire, 0, 'WHITESPACE', 0, 'POINT')} + ' FCFA'">2500
+                        FCFA</td>
+                    <td>
+                        <a th:href="@{'/rh/employes/modifier/' + ${employe.id}}"
+                            style="color: var(--primary-color); margin-right: 0.5rem;">Modifier</a>
+                        <a th:href="@{'/rh/employes/supprimer/' + ${employe.id}}" style="color: var(--danger-color);"
+                            onclick="return confirm('Supprimer cet employé ?')">Supprimer</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

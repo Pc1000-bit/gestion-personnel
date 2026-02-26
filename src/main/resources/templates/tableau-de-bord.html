@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout :: header}"></head>
+
+<body>
+    <nav th:replace="~{layout :: nav}"></nav>
+
+    <div class="container">
+        <h1 style="margin-top: 0;">Tableau de Bord</h1>
+        <p style="color: var(--secondary-color);">Bienvenue dans le système de gestion du personnel.</p>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Total Employés</h3>
+                <div class="value" th:text="${totalEmployes}">0</div>
+            </div>
+            <div class="card">
+                <h3>Masse Salariale Mensuelle</h3>
+                <div class="value"
+                    th:text="${#numbers.formatDecimal(masseSalariale, 0, 'WHITESPACE', 0, 'POINT')} + ' FCFA'">0 FCFA
+                </div>
+            </div>
+            <div class="card">
+                <h3>Départements Actifs</h3>
+                <div class="value" th:text="${totalDepartements}">1</div>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem;">
+            <h2>Actions Rapides</h2>
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <a th:href="@{/rh/employes/ajouter}" class="btn btn-primary">+ Ajouter un Employé</a>
+                <a th:href="@{/rh/employes}" class="btn" style="background: #e2e8f0;">Voir tous les employés</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{layout :: header}"></head>
+
+<body>
+    <nav th:replace="~{layout :: nav}"></nav>
+
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1 style="margin: 0;">Gestion des Départements</h1>
+            <a th:href="@{/admin/departements/ajouter}" class="btn btn-primary">+ Nouveau Département</a>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom du Département</th>
+                    <th>Lieu</th>
+                    <th>Responsable</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="dept : ${departements}">
+                    <td th:text="${dept.id}">1</td>
+                    <td th:text="${dept.nom}">Informatique</td>
+                    <td th:text="${dept.lieu}">Bâtiment A</td>
+                    <td th:text="${dept.nomResponsable}">Dr. Martin</td>
+                    <td>
+                        <a th:href="@{'/admin/departements/modifier/' + ${dept.id}}"
+                            style="color: var(--primary-color); margin-right: 0.5rem;">Modifier</a>
+                        <a th:href="@{'/admin/departements/supprimer/' + ${dept.id}}"
+                            style="color: var(--danger-color);"
+                            onclick="return confirm('Supprimer ce département ?')">Supprimer</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
