@@ -22,6 +22,7 @@ L'application respecte l'architecture MVC (Modèle-Vue-Contrôleur) :
 - CRUD complet : Gestion des employés et des départements.
 - Système de recherche : Filtrage des employés par nom.
 - Automatisation : Script de lancement intelligent (LANCER_APPLICATION.bat) avec détection automatique du démarrage serveur.
+- Expérience Utilisateur (UX) : Interface réactive avec état de chargement (Spinner) lors de l'authentification.
 
 4. SÉCURITÉ ET VALIDATION DES DONNÉES (POINTS FORTS)
 ------------------------------------------------------
@@ -43,11 +44,14 @@ R : Pour assurer la conformité avec la législation en vigueur au Gabon (SMIG).
 Q2 : Comment gérez-vous les erreurs de saisie utilisateur ?
 R : J'utilise une validation à double niveau. Le navigateur bloque les oublis (required), et le serveur Java traite les règles complexes (format téléphone, montant salaire) en renvoyant des messages d'erreur clairs en rouge sans perdre les données déjà saisies.
 
-Q3 : Votre application est-elle prête pour un usage réel ?
+Q3 : Pourquoi avoir ajouté un état de chargement (Spinner) sur la page de connexion ?
+R : C'est une bonne pratique de l'Expérience Utilisateur (UX). Cela informe visuellement l'utilisateur que sa demande est en cours de traitement, évitant ainsi les clics répétés et renforçant l'aspect professionnel et fini de l'application.
+
+Q4 : Votre application est-elle prête pour un usage réel ?
 R : Oui, car elle gère les cas d'erreurs (doublons, mauvais formats) et assure la sécurité des mots de passe. Elle peut être déployée immédiatement sur un serveur local d'entreprise.
 
 ================================================================================
-CONSEIL : Pour la démo, tentez de créer un employé avec un salaire de 50 000 ou 
+CONSEIL : Pour la démo, tentez de créer un employé avec un salaire de 100 000 ou 
 un numéro à 10 chiffres. Montrez que le système le refuse. C'est ce genre de 
-gribouillages "métier" qui impressionne le jury !
+rigueurs "métier" qui impressionne le jury !
 ================================================================================
