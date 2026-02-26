@@ -38,7 +38,7 @@
 
                 <div class="form-group">
                     <label>Poste</label>
-                    <input type="text" th:field="*{poste}">
+                    <input type="text" th:field="*{poste}" required>
                 </div>
 
                 <div class="form-row">
@@ -48,13 +48,13 @@
                     </div>
                     <div class="form-group">
                         <label>Date d'Embauche</label>
-                        <input type="date" th:field="*{dateEmbauche}">
+                        <input type="date" th:field="*{dateEmbauche}" required>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>Département</label>
-                    <select th:field="*{departement.id}">
+                    <select th:field="*{departement.id}" required>
                         <option value="">Sélectionner un département</option>
                         <option th:each="dept : ${departements}" th:value="${dept.id}" th:text="${dept.nom}">IT</option>
                     </select>

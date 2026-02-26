@@ -4,7 +4,7 @@
 
 1. INTRODUCTION ET CONTEXTE
 -----------------------------
-« Bonjour à tous. Je vais vous présenter mon projet de fin module : une application de Gestion du Personnel (SGP). L'objectif était de concevoir un outil léger, sécurisé et performant pour centraliser les informations des employés et des départements d'une entreprise. »
+« Bonjour à tous. Je vais vous présenter mon projet de fin de module : une application de Gestion du Personnel (SGP). L'objectif était de concevoir un outil léger, sécurisé et performant pour centraliser les informations des employés et des départements d'une entreprise. »
 
 2. CHOIX TECHNIQUES (LA STACK)
 -------------------------------
@@ -12,51 +12,42 @@ Pour ce projet de Licence 3, j'ai choisi une stack "Full Stack Java" moderne :
 - Backend : Spring Boot 3 (Framework robuste, facilite l'injection de dépendances).
 - Persistance : Spring Data JPA (pour manipuler la base de données sans écrire de SQL complexe).
 - Base de données : MySQL (fiable et standard).
-- Frontend : Thymeleaf + Vanilla CSS (moteur de template côté serveur, évite la complexité des frameworks JS tout en restant dynamique).
-- Sécurité : Spring Security (gestion fine des accès par rôles).
+- Frontend : Thymeleaf + Vanilla CSS (moteur de template côté serveur).
+- Sécurité : Spring Security (authentification et gestion des accès).
 
 3. ARCHITECTURE ET FONCTIONNALITÉS
 ------------------------------------
 L'application respecte l'architecture MVC (Modèle-Vue-Contrôleur) :
-- Modèle : Représente les entités (Employé, Département, Utilisateur, Rôle).
-- Vue : Interface utilisateur en HTML/CSS via Thymeleaf.
-- Contrôleur : Gère la logique des requêtes HTTP.
+- Tableau de bord dynamique : Statistiques en temps réel (Effectif, Masse salariale en FCFA).
+- CRUD complet : Gestion des employés et des départements.
+- Système de recherche : Filtrage des employés par nom.
+- Automatisation : Script de lancement intelligent (LANCER_APPLICATION.bat) avec détection automatique du démarrage serveur.
 
-Fonctionnalités clés :
-- Authentification sécurisée (mots de passe hachés en BCrypt).
-- Tableau de bord dynamique (Stats en temps réel : nombre d'employés, masse salariale en FCFA).
-- CRUD complet des employés (Ajout, Modification, Suppression, Liste).
-- Gestion des départements réservée à l'administrateur.
-- Recherche multicritères d'employés.
-
-4. DÉFIS RENCONTRÉS ET SOLUTIONS
-----------------------------------
-- Compatibilité Java : J'ai travaillé avec la toute dernière version de Java (v25) et configuré le "Maven Wrapper" (mvnw) pour garantir que le projet tourne sur n'importe quel PC sans installation complexe de Maven.
-- Gestion des relations : Mise en place de relations @ManyToOne (Employé -> Département) avec gestion de la suppression sécurisée (SET NULL).
-- Ergonomie : Développement d'un design responsive et épuré avec Vanilla CSS pour une expérience utilisateur fluide.
+4. SÉCURITÉ ET VALIDATION DES DONNÉES (POINTS FORTS)
+------------------------------------------------------
+C'est ici que l'application se distingue par sa robustesse :
+- Unicité stricte : Interdiction des doublons sur les emails et les noms de départements.
+- Respect du Droit du Travail (Gabon) : Le système refuse tout salaire inférieur au SMIG (150 000 FCFA).
+- Intégrité des données : Le salaire doit obligatoirement être un nombre entier.
+- Formatage Téléphone : Obligation de commencer par les réseaux locaux (062, 074, 066, 077, 076) et longueur exacte de 9 chiffres.
+- Validation Multi-couche : Les champs obligatoires sont contrôlés à la fois dans l'interface (HTML5) et dans le serveur (Java) pour une sécurité maximale.
+- Protection contre les injections : Le champ "Poste" interdit les caractères spéciaux.
 
 ================================================================================
              QUESTIONS POSSIBLES DU JURY (PRÉPARATION)
 ================================================================================
 
-Q1 : Pourquoi avoir choisi Spring Boot plutôt que du Java EE classique ?
-R : Spring Boot offre une configuration simplifiée (Auto-configuration) et un serveur intégré (Tomcat), ce qui accélère considérablement le développement et facilite le déploiement.
+Q1 : Pourquoi bloquez-vous le salaire à 150 000 FCFA ?
+R : Pour assurer la conformité avec la législation en vigueur au Gabon (SMIG). Cela montre que l'informatique est au service des règles métiers de l'entreprise.
 
-Q2 : Comment gérez-vous la sécurité des mots de passe ?
-R : Les mots de passe ne sont jamais stockés en clair. J'utilise BCryptPasswordEncoder de Spring Security qui génère un sel aléatoire et un hachage robuste, rendant les données inutilisables en cas de vol de base de données.
+Q2 : Comment gérez-vous les erreurs de saisie utilisateur ?
+R : J'utilise une validation à double niveau. Le navigateur bloque les oublis (required), et le serveur Java traite les règles complexes (format téléphone, montant salaire) en renvoyant des messages d'erreur clairs en rouge sans perdre les données déjà saisies.
 
-Q3 : Pourquoi avoir utilisé Thymeleaf au lieu d'un framework comme React ou Angular ?
-R : Pour un projet de ce type, le rendu côté serveur (SSR) avec Thymeleaf est plus simple à mettre en place, plus rapide à charger pour le référencement, et permet de garder toute la logique dans le projet Java, ce qui facilite la maintenance.
-
-Q4 : Qu'arriverait-il si on supprimait un département qui contient encore des employés ?
-R : Grâce aux annotations JPA (@OnDelete(action = OnDeleteAction.SET_NULL)), la base de données mettra automatiquement à jour les employés rattachés pour que leur champ département devienne "vide" (NULL) au lieu de faire planter le système ou de supprimer l'employé par erreur.
-
-Q5 : Quelles seraient les prochaines évolutions possibles pour votre application ?
-R : On pourrait ajouter l'exportation des listes en PDF/Excel, un système de gestion des congés, ou encore une partie "Messagerie Interne" pour les employés.
+Q3 : Votre application est-elle prête pour un usage réel ?
+R : Oui, car elle gère les cas d'erreurs (doublons, mauvais formats) et assure la sécurité des mots de passe. Elle peut être déployée immédiatement sur un serveur local d'entreprise.
 
 ================================================================================
-CONSEIL : Pendant la démo, commencez par vous connecter avec le compte 'admin'.
-Ajoutez un département, puis ajoutez un employé pour montrer que la liste déroutante
-du département s'est mise à jour dynamiquement. C'est ce qui prouve la solidité
-de votre code !
+CONSEIL : Pour la démo, tentez de créer un employé avec un salaire de 50 000 ou 
+un numéro à 10 chiffres. Montrez que le système le refuse. C'est ce genre de 
+gribouillages "métier" qui impressionne le jury !
 ================================================================================

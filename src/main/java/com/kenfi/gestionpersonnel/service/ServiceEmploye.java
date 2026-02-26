@@ -48,4 +48,12 @@ public class ServiceEmploye {
                 .mapToDouble(e -> e.getSalaire() != null ? e.getSalaire() : 0.0)
                 .sum();
     }
+
+    public Optional<Employe> trouverParEmail(String email) {
+        return employeDepot.findByEmail(email);
+    }
+
+    public Optional<Employe> trouverParNomExact(String nom) {
+        return employeDepot.findByNomCompletIgnoreCase(nom);
+    }
 }

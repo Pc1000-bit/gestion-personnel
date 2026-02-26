@@ -34,7 +34,17 @@ public class ControleurDepartement {
     }
 
     @PostMapping("/enregistrer")
-    public String enregistrer(@ModelAttribute("departement") Departement departement) {
+    public String enregistrer(@ModelAttribute("departement") Departement departement, org.springframework.validation.BindingResult result) {
+        // Vérification du doublon de nom
+        java.util.Optional<Departement> deptExistant = serviceDepartement.trouverParNom(departement.getNom());
+        if (deptExistant.isPresent() && (departement.getId() == null || !deptExistant.get().getId().equals(departement.getId()))) {
+            result.rejectValue("nom", "error.departement", "Ce nom de département existe déjà.");
+        }
+
+        if (result.hasErrors()) {
+            return "formulaire-departement";
+        }
+
         serviceDepartement.enregistrer(departement);
         return "redirect:/admin/departements";
     }

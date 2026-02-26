@@ -33,4 +33,8 @@ public class ServiceDepartement {
     public long compterTotal() {
         return departementDepot.count();
     }
+
+    public Optional<Departement> trouverParNom(String nom) {
+        return departementDepot.findByNom(nom);
+    }
 }

@@ -13,6 +13,13 @@
             <form th:action="@{/admin/departements/enregistrer}" th:object="${departement}" method="post">
                 <input type="hidden" th:field="*{id}">
 
+                <div th:if="${#fields.hasErrors('*')}" class="card"
+                    style="background: #fee2e2; color: #991b1b; padding: 0.75rem; margin-bottom: 1rem; border: none;">
+                    <ul>
+                        <li th:each="err : ${#fields.allErrors()}" th:text="${err}">Erreur</li>
+                    </ul>
+                </div>
+
                 <div class="form-group">
                     <label>Nom du Département</label>
                     <input type="text" th:field="*{nom}" required>

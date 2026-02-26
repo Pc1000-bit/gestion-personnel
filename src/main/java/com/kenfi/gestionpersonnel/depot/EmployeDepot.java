@@ -11,4 +11,6 @@ import java.util.List;
 public interface EmployeDepot extends JpaRepository<Employe, Long> {
     List<Employe> findByDepartement(Departement departement);
     List<Employe> findByNomCompletContainingIgnoreCase(String nom);
+    java.util.Optional<Employe> findByNomCompletIgnoreCase(String nomComplet);
+    java.util.Optional<Employe> findByEmail(String email);
 }
