@@ -1,0 +1,115 @@
+PRÉSENTATION – SYSTÈME DE GESTION DU PERSONNEL (SGP)
+
+INTRODUCTION
+
+« Bonjour à tous. Je vais vous présenter mon projet de fin de module : une application de Gestion du Personnel (SGP). L'objectif était de concevoir un outil léger, sécurisé et performant pour centraliser les informations des employés et des départements d'une entreprise. »
+
+LES CHOIX TECHNIQUES (expliqués simplement)
+
+Pour ce projet de Licence 3, j'ai choisi une stack "Full Stack Java" moderne :
+
+- Backend : Spring Boot 3 (Framework robuste, facilite l'injection de dépendances).
+- Persistance : Spring Data JPA (pour manipuler la base de données sans écrire de SQL complexe).
+- Base de données : MySQL (fiable et standard).
+- Frontend : Thymeleaf + Vanilla CSS (moteur de template côté serveur).
+- Sécurité : Spring Security (authentification et gestion des accès).
+
+Concrètement :
+
+J’ai utilisé Spring Boot pour construire le cœur de l’application. le backend.
+C’est un framework, un outil qui permet de développer des applications robustes et professionnelles plus rapidement.
+
+La base de données utilisée est MySQL.
+et pour la persistance des données, j'ai utilisé Spring Data JPA.
+
+Pour l’interface le frontend, j’ai utilisé Thymeleaf et du CSS simple.
+Cela permet d’avoir une interface claire, lisible et facile à utiliser.
+
+Enfin, j’ai intégré un système de sécurité pour protéger les accès.
+Chaque utilisateur doit se connecter avec un identifiant et un mot de passe sécurisé. »
+
+
+COMMENT FONCTIONNE L’APPLICATION ?
+
+« L’application permet :
+
+De voir un tableau de bord avec des statistiques en temps réel
+(nombre d’employés, masse salariale totale en FCFA).
+
+CRUD complet : Gestion des employés et des départements.
+D’ajouter, modifier ou supprimer des employés.
+De créer et gérer des départements.
+
+De rechercher rapidement un employé par son nom.
+
+
+J’ai également ajouté une petite amélioration d’expérience utilisateur :
+lorsqu’on se connecte, un indicateur visuel montre que le système travaille (Spinner). Cela évite que l’utilisateur clique plusieurs fois en pensant que l’application est bloquée. »
+
+
+        LA RIGUEUR ET LA SÉCURITÉ
+
+- Unicité stricte : Interdiction des doublons sur les emails et les noms de départements.
+- Respect du Droit du Travail (Gabon) : Le système refuse tout salaire inférieur au SMIG (150 000 FCFA).
+- Intégrité des données : Le salaire doit obligatoirement être un nombre entier.
+- Formatage Téléphone : Obligation de commencer par les réseaux locaux (062, 074, 066, 077, 076) et longueur exacte de 9 chiffres.
+- Validation Multi-couche : Les champs obligatoires sont contrôlés à la fois dans l'interface (HTML5) et dans le serveur (Java) pour une sécurité maximale.
+- Protection contre les injections : Le champ "Poste" interdit les caractères spéciaux.
+
+traduction : 
+
+« J’ai voulu que l’application respecte les règles réelles d’une entreprise au Gabon.
+
+Par exemple :
+
+Il est impossible d’enregistrer un salaire inférieur à 150 000 FCFA.
+Pourquoi ? Parce que c’est le SMIG au Gabon.
+L’application respecte donc la loi.
+
+Il est impossible d’enregistrer deux employés avec le même email.
+Cela évite les confusions.
+
+Les numéros de téléphone doivent respecter les formats locaux.
+Pas de numéro fantaisiste.
+
+Les mots de passe sont sécurisés et protégés.
+
+J’ai aussi mis en place une validation à deux niveaux :
+Le navigateur vérifie les champs simples,
+et le serveur vérifie les règles plus complexes.
+
+Cela évite les erreurs et protège la base de données. »
+
+L’idée clé à faire passer :
+l’application ne se contente pas d’enregistrer des données.
+Elle contrôle, elle protège, elle impose des règles.
+
+================================================================================
+             QUESTIONS POSSIBLES DU JURY (PRÉPARATION)
+================================================================================
+
+Q1 : Pourquoi bloquez-vous le salaire à 150 000 FCFA ?
+R : Pour assurer la conformité avec la législation en vigueur au Gabon (SMIG). Cela montre que l'informatique est au service des règles métiers de l'entreprise.
+
+Q2 : Comment gérez-vous les erreurs de saisie utilisateur ?
+R : J'utilise une validation à double niveau. Le navigateur bloque les oublis (required), et le serveur Java traite les règles complexes (format téléphone, montant salaire) en renvoyant des messages d'erreur clairs en rouge sans perdre les données déjà saisies.
+
+Q3 : Pourquoi avoir ajouté un état de chargement (Spinner) sur la page de connexion ?
+R : C'est une bonne pratique de l'Expérience Utilisateur (UX). Cela informe visuellement l'utilisateur que sa demande est en cours de traitement, évitant ainsi les clics répétés et renforçant l'aspect professionnel et fini de l'application.
+
+Q4 : Votre application est-elle prête pour un usage réel ?
+R : Oui, car elle gère les cas d'erreurs (doublons, mauvais formats) et assure la sécurité des mots de passe. Elle peut être déployée immédiatement sur un serveur local d'entreprise.
+
+Q5 : C'est quoi un Framework ?
+R : Un framework, c’est comme un plan tout prêt qui t’aide à construire un programme ou une appli plus vite sans tout inventer toi-même.
+
+Q6 : Spring Data JPA ?
+R : c'est comme un traducteur automatique : Il te permet de parler à la base de données en utilisant uniquement du Java (des objets).
+
+Q7 : C'est quoi Thymeleaf ?
+R : C'est un moteur de template qui permet de générer dynamiquement des pages HTML en y intégrant directement les données venant du code Java.
+    C'est lui qui fait le pont entre ton code Java et tes pages web.
+
+Q8 : C'est quoi Spring Security ?
+R : C'est un outil qui permet de sécuriser ton application en gérant les utilisateurs, les rôles et les permissions.
+    C'est lui qui gère les connexions et les déconnexions.
